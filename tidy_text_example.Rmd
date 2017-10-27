@@ -34,7 +34,7 @@ reviews_df$names <- names(reviews)
 
 The biggest frustration that I have had with using `tm` as the primary package for text mining/NLP is that all of the pre-processing (remove stop words, move everything to lower case, remove punctuation, etc.) takes place after you convert it to a `tm` `Corpus`, which is an obscure, hard to manipulate object.
 
-I do some simple cleaning within the data frame with `stringr` and then get a `tidytest` tidy tibble using the `unnest_tokens` function.
+I do some simple cleaning within the data frame with `stringr` and then get a `tidytext` tidy tibble using the `unnest_tokens` function.
 
 ```{r reviews_df}
 reviews_df <- reviews_df %>% 
@@ -157,6 +157,6 @@ review_topics <- classifications %>%
   select(document, topic, gamma, reviews, gamma_rank)
 ```
 
-I have primarily used this data analysis method to then create an R Shiny app, in which case I use a user input to filter for the topic number in a tab for the word frequency per topic (`filter(topic == input$foo` in the code chunk instead). While long documents aren't ideal to be placed into a data frame, I've built topic models on smaller pieces of text (web form data, in more than one case), so it was OK (but not great) to display at a `DT` data table and then provide an option to download a filtered CSV of the resulting topic. I create the `gamma_rank` field in the above topic-specific data frame to create a filter if the user wants to review fewer documents (creating a conditional check box where `gamma_rank` == 1 would only assign one topic to each document, which is the topic with the highest gamma value for that document).
+I have primarily used this data analysis method to then create an R Shiny app, in which case I use a user input to filter for the topic number in a tab for the word frequency per topic (`filter(topic == input$foo`) in the code chunk instead). While long documents aren't ideal to be placed into a data frame, I've built topic models on smaller pieces of text (web form data, in more than one case), so it was OK (but not great) to display at a `DT` data table and then provide an option to download a filtered CSV of the resulting topic. I create the `gamma_rank` field in the above topic-specific data frame to create a filter if the user wants to review fewer documents (creating a conditional check box where `gamma_rank` == 1 would only assign one topic to each document, which is the topic with the highest gamma value for that document).
 
 I hope this demonstrates some of the functionality of `tidytext`. I'm hardly doing anything innovative here. I just like the `tidyverse` in general, and find this to be a useful framework for doing NLP-related analysis.
